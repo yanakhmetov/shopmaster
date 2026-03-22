@@ -1,26 +1,45 @@
-@import "tailwindcss";
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 100%;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Добавьте в конец файла */
+@layer utilities {
+  /* Адаптивные отступы для контейнера */
+  .container {
+    @apply px-4 sm:px-6 lg:px-8 mx-auto;
+  }
+  
+  /* Адаптивные тексты */
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+  
+  .heading-responsive {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+  }
+}
+
+/* Адаптивные настройки для мобильных устройств */
+@media (max-width: 640px) {
+  input, textarea, select, button {
+    font-size: 16px !important; /* Предотвращает масштабирование на iOS */
+  }
 }

@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    container_name: shop_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shopdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shop_network
+
+  # Приложение Next.js
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shop_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shopdb
+      NEXTAUTH_SECRET: mysecretkey123456789
+      NEXTAUTH_URL: http://localhost:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - shop_network
+
+  # pgAdmin (опционально - для просмотра базы)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: shop_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - shop_network
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+
+networks:
+  shop_network:
+    driver: bridge
