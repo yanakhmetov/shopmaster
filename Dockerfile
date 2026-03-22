@@ -1,9 +1,8 @@
 FROM node:18-alpine
 
-# Устанавливаем необходимые пакеты
-RUN apk add --no-cache openssl
+# Устанавливаем netcat для проверки соединения с базой
+RUN apk add --no-cache openssl netcat-openbsd
 
-# Устанавливаем рабочую директорию
 WORKDIR /app
 
 # Копируем package.json и устанавливаем зависимости
@@ -19,8 +18,8 @@ RUN npx prisma generate
 # Собираем приложение
 RUN npm run build
 
-# Экспонируем порт
 EXPOSE 3000
+EXPOSE 5555
 
-# Запускаем приложение
+# Скрипт запуска будет в docker-compose.yml
 CMD ["npm", "start"]

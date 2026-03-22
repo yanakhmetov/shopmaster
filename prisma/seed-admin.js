@@ -1,31 +1,27 @@
-﻿const { PrismaClient } = require('@prisma/client')
-const { hash } = require('bcrypt')
+﻿const { PrismaClient } = require('@prisma/client');
+const { hash } = require('bcrypt');
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function createAdmin() {
   try {
-    // Проверяем подключение
-    await prisma.$connect()
-    console.log('✅ Подключение к базе данных установлено')
+    console.log("👤 Creating admin user...");
     
-    const adminEmail = 'admin@shopmaster.com'
-    const adminPassword = 'admin123'
-    
-    // Хешируем пароль
-    const hashedPassword = await hash(adminPassword, 10)
+    const adminEmail = 'admin@shopmaster.com';
+    const adminPassword = 'admin123';
     
     // Проверяем, существует ли уже админ
     const existingAdmin = await prisma.user.findUnique({
       where: { email: adminEmail }
-    })
+    });
     
     if (existingAdmin) {
-      console.log('⚠️ Администратор уже существует:')
-      console.log(`   Email: ${existingAdmin.email}`)
-      console.log(`   Роль: ${existingAdmin.role}`)
-      return
+      console.log(`⚠️ Admin already exists: ${existingAdmin.email}`);
+      return;
     }
+    
+    // Хешируем пароль
+    const hashedPassword = await hash(adminPassword, 10);
     
     // Создаем администратора
     const admin = await prisma.user.create({
@@ -35,22 +31,18 @@ async function createAdmin() {
         name: 'Администратор',
         role: 'ADMIN'
       }
-    })
+    });
     
-    console.log('✅ Администратор успешно создан:')
-    console.log(`   ID: ${admin.id}`)
-    console.log(`   Email: ${admin.email}`)
-    console.log(`   Имя: ${admin.name}`)
-    console.log(`   Роль: ${admin.role}`)
-    console.log(`   Пароль: ${adminPassword}`)
-    console.log('\n⚠️ Сохраните эти данные!')
+    console.log(`✅ Admin created successfully!`);
+    console.log(`   Email: ${admin.email}`);
+    console.log(`   Password: ${adminPassword}`);
     
   } catch (error) {
-    console.error('❌ Ошибка:', error.message)
-    console.error('Детали:', error)
+    console.error('❌ Admin creation error:', error.message);
+    process.exit(1);
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
 
-createAdmin()
+createAdmin();

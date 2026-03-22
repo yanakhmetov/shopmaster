@@ -1,10 +1,18 @@
-﻿/*тестовые данные*/
-
-const { PrismaClient } = require("@prisma/client");
+﻿const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
   try {
+    console.log("🌱 Seeding database...");
+    
+    // Проверяем, есть ли уже товары
+    const existingProducts = await prisma.product.count();
+    if (existingProducts > 0) {
+      console.log(`⚠️ Found ${existingProducts} existing products. Skipping seed.`);
+      console.log("To reseed, run: docker-compose down -v && docker-compose up -d");
+      return;
+    }
+    
     const products = await prisma.product.createMany({
       data: [
         {
@@ -40,8 +48,8 @@ async function main() {
           inStock: true
         },
         {
-          name: "Защитная гидрогелевая пленка для Apple iPhone ",
-          description: "Защитная гидрогелевая пленка для Apple iPhone — это новейшее решение для защиты экрана вашего устройства. Эта пленка идеально подходит для владельцев iPhone, которые заботятся о надежной защите своего гаджета от царапин, грязи и других повреждений. Гидрогелевая пленка отличается высокой прочностью и долговечностью, обеспечивая сохранность вашего экрана в первозданном состоянии.",
+          name: "Защитная гидрогелевая пленка для Apple iPhone",
+          description: "Защитная гидрогелевая пленка для Apple iPhone — это новейшее решение для защиты экрана вашего устройства.",
           price: 9.99,
           category: "Защита",
           image: "https://png.pngtree.com/png-vector/20240621/ourmid/pngtree-protective-film-for-phone-vector-png-image_12815328.png",
@@ -49,7 +57,7 @@ async function main() {
         },
         {
           name: "Чехол для iPhone 14 Pro Max",
-          description: "Чехол Silicone Case – это не только стильный аксессуар, но и надежная защита для вашего iPhone. Мягкий силикон приятен на ощупь и эффективно амортизирует удары, а внутренняя подкладка из микрофибры предотвращает появление царапин. ",
+          description: "Чехол Silicone Case – это не только стильный аксессуар, но и надежная защита.",
           price: 15.99,
           category: "Защита",
           image: "https://iceapple.ru/image/cache/catalog/!%D1%87%D0%B5%D1%85%D0%BB%D1%8B14/14Pro/kopuya-ce53adr08368g1qc2jhg-photoroom.png-photoroom-600x600.png",
@@ -57,7 +65,7 @@ async function main() {
         },
         {
           name: "Мышка для ноутбука",
-          description: "Компактная беспроводная мышь в современном дизайне с двойным стандартом соединения и USB-портом. Удобно использовать в дороге благодаря компактности и универсальности подключения.",
+          description: "Компактная беспроводная мышь в современном дизайне",
           price: 20.99,
           category: "Аксессуары",
           image: "https://png.pngtree.com/png-vector/20240626/ourmid/pngtree-3d-laptop-black-mouse-is-on-transparent-background-a-computer-png-image_12849454.png",
@@ -65,7 +73,7 @@ async function main() {
         },
         {
           name: "Беспроводная клавиатура",
-          description: "Механическая клавиатура с RGB подсветкой. Тихие и тонкие коричневые переключатели идеально подойдут как для игр, так и для работы.",
+          description: "Механическая клавиатура с RGB подсветкой",
           price: 25.99,
           category: "Аксессуары",
           image: "https://foni.papik.pro/uploads/posts/2024-10/foni-papik-pro-itum-p-kartinki-igrovaya-klaviatura-na-prozrachno-7.png",
@@ -74,9 +82,10 @@ async function main() {
       ]
     });
     
-    console.log("Добавлено товаров: " + products.count);
+    console.log(`✅ Added ${products.count} products`);
   } catch (error) {
-    console.error("Ошибка:", error.message);
+    console.error("❌ Seeding error:", error.message);
+    process.exit(1);
   } finally {
     await prisma.$disconnect();
   }
