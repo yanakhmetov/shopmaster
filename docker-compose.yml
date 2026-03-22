@@ -29,30 +29,18 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-      - "5555:5555"  # Добавляем порт для Prisma Studio
+      - "5555:5555"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shopdb
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-mysecretkey123456789}
-      NEXTAUTH_URL: http://localhost:3000
+      # Явно указываем переменные
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/shopdb"
+      NEXTAUTH_SECRET: "mysecretkey123456789"
+      NEXTAUTH_URL: "http://localhost:3000"
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - shop_network
-    # Автоматическая инициализация базы
-    command: >
-      sh -c "
-        echo '⏳ Ожидание PostgreSQL...' &&
-        while ! nc -z postgres 5432; do sleep 1; done &&
-        echo '✅ PostgreSQL готов' &&
-        echo '📦 Выполнение миграций...' &&
-        npx prisma migrate deploy &&
-        echo '🌱 Добавление тестовых данных...' &&
-        node seed.js &&
-        node seed-admin.js &&
-        echo '🚀 Запуск приложения...' &&
-        npm start
-      "
+    command: npm start
 
 volumes:
   postgres_data:

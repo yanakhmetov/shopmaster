@@ -1,15 +1,15 @@
 FROM node:18-alpine
 
-# Устанавливаем netcat для проверки соединения с базой
-RUN apk add --no-cache openssl netcat-openbsd
+# Устанавливаем netcat для проверки соединения (опционально)
+RUN apk add --no-cache openssl
 
 WORKDIR /app
 
-# Копируем package.json и устанавливаем зависимости
+# Копируем package.json
 COPY package*.json ./
 RUN npm ci
 
-# Копируем исходный код
+# Копируем весь проект (включая папку prisma)
 COPY . .
 
 # Генерируем Prisma Client
@@ -21,5 +21,4 @@ RUN npm run build
 EXPOSE 3000
 EXPOSE 5555
 
-# Скрипт запуска будет в docker-compose.yml
 CMD ["npm", "start"]
