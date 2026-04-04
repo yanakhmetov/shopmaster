@@ -16,7 +16,7 @@ export default function AuthStatus() {
     const initial = userDisplay[0].toUpperCase()
 
     return (
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 min-[425px]:gap-3 max-[425px]:gap-2">
         {/* Nickname for Desktop/Tablets */}
         <span className="hidden min-[480px]:inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
           {userDisplay}
@@ -28,19 +28,23 @@ export default function AuthStatus() {
         </span>
 
         {/* Avatar Circle for Mobile (< 480px) */}
-        <div className="min-[480px]:hidden w-9 h-9 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold text-sm shadow-sm ring-2 ring-white dark:ring-slate-800">
-          {initial}
+        <div className="min-[480px]:hidden w-10 flex justify-center">
+          <div className="w-9 h-9 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold text-sm shadow-sm ring-2 ring-white dark:ring-slate-800">
+            {initial}
+          </div>
         </div>
 
         {/* Logout Button */}
-        <button
-          onClick={() => signOut()}
-          className="p-2 min-[480px]:px-0 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors flex items-center gap-1 group"
-          title="Выйти"
-        >
-          <span className="hidden min-[480px]:inline">Выйти</span>
-          <ArrowRightOnRectangleIcon className="w-6 h-6 min-[480px]:hidden group-hover:scale-110 transition-transform" />
-        </button>
+        <div className="min-[480px]:w-auto w-10 flex justify-center">
+          <button
+            onClick={() => signOut()}
+            className="p-2 min-[480px]:px-0 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors flex items-center gap-1 group"
+            title="Выйти"
+          >
+            <span className="hidden min-[480px]:inline">Выйти</span>
+            <ArrowRightOnRectangleIcon className="w-6 h-6 min-[480px]:hidden group-hover:scale-110 transition-transform" />
+          </button>
+        </div>
       </div>
     )
   }
@@ -55,4 +59,4 @@ export default function AuthStatus() {
       </Link>
     </div>
   )
-}
+}

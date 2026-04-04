@@ -39,15 +39,17 @@ export default function ProductCard({ product }) {
           <span className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
             ${parseFloat(product.price).toFixed(2)}
           </span>
-          <div className="flex gap-2 w-full justify-between">
+          <div className="flex flex-row justify-between items-stretch gap-2 w-full">
             <Link 
               href={`/products/${product.id}`}
-              className="flex items-center gap-1 bg-gray-600 hover:bg-gray-700 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition text-sm sm:text-base"
+              className="flex items-center justify-center gap-1 bg-gray-600 hover:bg-gray-700 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg transition text-[10px] xs:text-xs sm:text-sm md:text-base flex-1"
             >
-              <EyeIcon className="w-4 h-4" />
+              <EyeIcon className="w-3 h-3 sm:w-4 sm:h-4" />
               Подробнее
             </Link>
-            <AddToCartButton productId={product.id} inStock={product.inStock} />
+            <div className="flex-1 flex">
+              <AddToCartButton productId={product.id} inStock={product.inStock} className="h-full" />
+            </div>
           </div>
         </div>
       </div>

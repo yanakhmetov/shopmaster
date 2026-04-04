@@ -29,26 +29,38 @@ export default function RootLayout({ children }) {
         <SessionProvider>
           <CartProvider>
             <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700">
-              <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center">
-                <div className="flex items-center space-x-4 sm:space-x-8">
-                  <a href="/" className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <nav className="container mx-auto px-4 md:px-6 lg:px-8 py-3 md:py-4 flex justify-between items-center">
+                <div className="flex items-center space-x-6 md:space-x-12">
+                  <a href="/" className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     ShopMaster
                   </a>
-                  <div className="hidden sm:flex space-x-4 md:space-x-6">
+                  <div className="hidden md:flex space-x-6 md:space-x-10">
                     <a href="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Главная</a>
                     <a href="/products" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Товары</a>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2 sm:space-x-4">
-                  <CartIcon />
-                  <ThemeToggle />
+                <div className="flex items-center space-x-4 md:space-x-8">
+                  <div className="hidden min-[425px]:flex items-center space-x-4 md:space-x-8">
+                    <CartIcon />
+                    <ThemeToggle />
+                  </div>
                   <AuthStatus />
                 </div>
               </nav>
-              <div className="sm:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900">
-                <div className="flex justify-around py-2">
-                  <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Главная</a>
-                  <a href="/products" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition py-2">Товары</a>
+              <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900">
+                <div className="container mx-auto px-4 flex justify-between items-center py-4">
+                  <div className="flex items-center space-x-6 min-[425px]:space-x-10">
+                    <a href="/" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">Главная</a>
+                    <a href="/products" className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">Товары</a>
+                  </div>
+                  <div className="flex min-[425px]:hidden items-center space-x-2">
+                    <div className="w-10 flex justify-center items-center">
+                      <CartIcon />
+                    </div>
+                    <div className="w-10 flex justify-center items-center">
+                      <ThemeToggle />
+                    </div>
+                  </div>
                 </div>
               </div>
             </header>

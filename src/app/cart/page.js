@@ -43,8 +43,8 @@ export default function CartPage() {
         <div className="flex-1">
           <div className="space-y-4">
             {cart.items.map((item) => (
-              <div key={item.id} className="flex flex-col sm:flex-row gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-                <div className="w-full sm:w-24 h-24 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden flex-shrink-0">
+              <div key={item.id} className="flex flex-row gap-3 min-[425px]:gap-4 bg-white dark:bg-gray-800 p-3 min-[425px]:p-4 rounded-lg shadow items-center">
+                <div className="w-20 h-20 min-[425px]:w-24 min-[425px]:h-24 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 relative">
                   {item.product.image ? (
                     <img
                       src={item.product.image}
@@ -52,44 +52,46 @@ export default function CartPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-[10px] text-center p-1">
                       Нет фото
                     </div>
                   )}
                 </div>
                 
-                <div className="flex-1">
-                  <Link href={`/products/${item.product.id}`} className="hover:text-blue-600">
-                    <h3 className="font-semibold text-lg dark:text-white">{item.product.name}</h3>
-                  </Link>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{item.product.category}</p>
-                  <p className="text-lg font-bold text-blue-600 dark:text-blue-400 mt-2">
-                    ${item.product.price}
-                  </p>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2">
+                <div className="flex-1 min-w-0 flex flex-col min-[425px]:flex-row min-[425px]:items-center justify-between gap-2 min-[425px]:gap-4 min-h-[80px] min-[425px]:min-h-0">
+                  <div className="flex-1 min-w-0">
+                    <Link href={`/products/${item.product.id}`} className="hover:text-blue-600">
+                      <h3 className="font-semibold text-sm min-[425px]:text-lg dark:text-white truncate">{item.product.name}</h3>
+                    </Link>
+                    <p className="text-xs min-[425px]:text-sm text-gray-500 dark:text-gray-400 truncate">{item.product.category}</p>
+                    <p className="text-sm min-[425px]:text-lg font-bold text-blue-600 dark:text-blue-400 mt-0.5 min-[425px]:mt-1">
+                      ${item.product.price}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between min-[425px]:justify-end gap-3 min-[425px]:gap-4 mt-1 min-[425px]:mt-0">
+                    <div className="flex items-center gap-2 min-[425px]:gap-3">
+                      <button
+                        onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                        className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                      >
+                        <MinusIcon className="w-4 h-4" />
+                      </button>
+                      <span className="w-8 min-[425px]:w-12 text-center text-sm min-[425px]:text-base dark:text-white">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                      >
+                        <PlusIcon className="w-4 h-4" />
+                      </button>
+                    </div>
                     <button
-                      onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                      className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                      onClick={() => removeItem(item.id)}
+                      className="p-1.5 min-[425px]:p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
                     >
-                      <MinusIcon className="w-4 h-4" />
-                    </button>
-                    <span className="w-12 text-center dark:text-white">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
-                    >
-                      <PlusIcon className="w-4 h-4" />
+                      <TrashIcon className="w-5 h-5" />
                     </button>
                   </div>
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
-                  >
-                    <TrashIcon className="w-5 h-5" />
-                  </button>
                 </div>
               </div>
             ))}

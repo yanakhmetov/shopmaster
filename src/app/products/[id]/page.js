@@ -175,57 +175,63 @@ export default function ProductDetail() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <Link href="/products" className="text-blue-500 hover:underline mb-4 inline-block">
-        ← Назад к товарам
+      <Link 
+        href="/products" 
+        className="text-blue-500 hover:text-blue-600 mb-6 inline-flex items-center gap-2 text-sm sm:text-base font-medium transition"
+      >
+        <span className="text-lg">←</span> Назад к товарам
       </Link>
 
-      <div className="w-[500px] mx-auto flex flex-col justify-center  group bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+      <div className="w-full max-w-[500px] mx-auto flex flex-col justify-center group bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-8 shadow-md transition-all duration-300">
         {product.image && (
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-72 object-contain rounded-lg mb-6 mx-auto"
+            className="w-full h-48 sm:h-72 object-contain rounded-lg mb-6 mx-auto"
           />
         )}
 
-        <h1 className="text-3xl font-bold mb-4 dark:text-white">{product.name}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-white line-clamp-2">{product.name}</h1>
 
         <div className="mb-4">
-          <span className="text-sm text-gray-500 dark:text-gray-400">Категория: {product.category}</span>
+          <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Категория: {product.category}</span>
         </div>
 
-        <p className="text-gray-700 dark:text-gray-300 mb-6">{product.description}</p>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6">{product.description}</p>
 
-        <div className="text-3xl font-bold mb-6 dark:text-white">${product.price}</div>
+        <div className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">${parseFloat(product.price).toFixed(2)}</div>
 
-        <div className="mb-6 flex justify-between">
-          <span className={`px-3 py-1 flex items-center rounded ${product.inStock
+        <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <span className={`px-3 py-1 flex items-center rounded text-sm sm:text-base ${product.inStock
             ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
             : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
             }`}>
             {product.inStock ? 'В наличии' : 'Нет в наличии'}
           </span>
-          {!isAdmin && <div className="flex gap-4 h-[100%]">
-            <AddToCartButton productId={product.id} inStock={product.inStock} />
-          </div>}
-          
+          {!isAdmin && (
+            <div className="w-full sm:w-auto">
+              <AddToCartButton productId={product.id} inStock={product.inStock} />
+            </div>
+          )}
         </div>
 
         {isAdmin && (
-          <div className="flex justify-between gap-4">
-            <button
-              onClick={() => setIsEditing(true)}
-              className="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition"
-            >
-              Редактировать
-            </button>
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition"
-            >
-              Удалить
-            </button>
-            <div className="flex gap-4 h-[100%]">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mt-4">
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="flex-1 sm:flex-none bg-yellow-500 text-white px-4 sm:px-6 py-2 rounded hover:bg-yellow-600 transition text-sm sm:text-base"
+              >
+                Редактировать
+              </button>
+              <button
+                onClick={handleDelete}
+                className="flex-1 sm:flex-none bg-red-500 text-white px-4 sm:px-6 py-2 rounded hover:bg-red-600 transition text-sm sm:text-base"
+              >
+                Удалить
+              </button>
+            </div>
+            <div className="w-full sm:w-auto">
               <AddToCartButton productId={product.id} inStock={product.inStock} />
             </div>
           </div>

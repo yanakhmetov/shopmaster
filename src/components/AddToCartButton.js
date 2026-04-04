@@ -3,7 +3,7 @@
 import { useCart } from '@/context/CartContext'
 import { useState } from 'react'
 
-export default function AddToCartButton({ productId, inStock }) {
+export default function AddToCartButton({ productId, inStock, className = '' }) {
   const { addToCart, loading } = useCart()
   const [isAdding, setIsAdding] = useState(false)
 
@@ -23,11 +23,11 @@ export default function AddToCartButton({ productId, inStock }) {
     <button
       onClick={handleAdd}
       disabled={!inStock || isAdding || loading}
-      className={`w-[140px] px-4 py-2 rounded-lg transition ${
+      className={`w-full px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg transition text-[10px] xs:text-xs sm:text-sm md:text-base ${
         inStock
           ? 'bg-blue-600 hover:bg-blue-700 text-white'
           : 'bg-gray-400 cursor-not-allowed text-gray-200'
-      }`}
+      } ${className}`}
     >
       {isAdding ? 'Добавление...' : inStock ? 'В корзину' : 'Нет в наличии'}
     </button>
