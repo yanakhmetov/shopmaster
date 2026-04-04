@@ -25,7 +25,7 @@ export default function Home() {
         setItemsPerView(3)
       }
     }
-    
+
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
@@ -160,7 +160,7 @@ export default function Home() {
               <p className="text-gray-500 dark:text-gray-400">Товары скоро появятся</p>
             </div>
           ) : (
-            <div 
+            <div
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               className="relative group"
@@ -174,7 +174,7 @@ export default function Home() {
                   <ChevronLeftIcon className="w-6 h-6 text-gray-800 dark:text-white" />
                 </button>
               )}
-              
+
               {currentIndex + itemsPerView < products.length && (
                 <button
                   onClick={nextSlide}
@@ -186,13 +186,13 @@ export default function Home() {
 
               {/* Контейнер карусели */}
               <div className="overflow-hidden">
-                <div 
+                <div
                   className="flex gap-6 transition-transform duration-500 ease-in-out"
                   style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
                 >
                   {products.map((product) => (
-                    <div 
-                      key={product.id} 
+                    <div
+                      key={product.id}
                       className="flex-shrink-0"
                       style={{ width: `calc(${100 / itemsPerView}% - ${(itemsPerView - 1) * 24 / itemsPerView}px)` }}
                     >
@@ -209,11 +209,10 @@ export default function Home() {
                     <button
                       key={idx}
                       onClick={() => setCurrentIndex(idx * itemsPerView)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        currentSlide === idx
+                      className={`h-2 rounded-full transition-all duration-300 ${currentSlide === idx
                           ? 'w-8 bg-blue-600'
                           : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
