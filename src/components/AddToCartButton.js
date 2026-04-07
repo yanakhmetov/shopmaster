@@ -23,13 +23,20 @@ export default function AddToCartButton({ productId, inStock, className = '' }) 
     <button
       onClick={handleAdd}
       disabled={!inStock || isAdding || loading}
-      className={`w-full px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg transition text-[10px] xs:text-xs sm:text-sm md:text-base ${
+      className={`relative inline-flex items-center justify-center px-6 py-3 rounded-2xl font-bold transition-all transform active:scale-95 disabled:scale-100 disabled:opacity-50 overflow-hidden group shadow-lg ${
         inStock
-          ? 'bg-blue-600 hover:bg-blue-700 text-white'
-          : 'bg-gray-400 cursor-not-allowed text-gray-200'
+          ? 'premium-gradient text-white premium-glow'
+          : 'glass text-muted-foreground'
       } ${className}`}
     >
-      {isAdding ? 'Добавление...' : inStock ? 'В корзину' : 'Нет в наличии'}
+      <span className={`transition-all duration-300 ${isAdding ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+        {!inStock ? 'Нет в наличии' : 'В корзину'}
+      </span>
+      {isAdding && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+      )}
     </button>
   )
 }

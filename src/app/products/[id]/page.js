@@ -174,68 +174,86 @@ export default function ProductDetail() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <Link 
-        href="/products" 
-        className="text-blue-500 hover:text-blue-600 mb-6 inline-flex items-center gap-2 text-sm sm:text-base font-medium transition"
-      >
-        <span className="text-lg">←</span> Назад к товарам
-      </Link>
+    <main className="container mx-auto px-4 py-12 sm:py-20 min-h-screen">
+      <div className="max-w-6xl mx-auto">
+        <Link 
+          href="/products" 
+          className="group inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary transition-colors mb-12"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Вернуться в каталог
+        </Link>
 
-      <div className="w-full max-w-[500px] mx-auto flex flex-col justify-center group bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-8 shadow-md transition-all duration-300">
-        {product.image && (
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-48 sm:h-72 object-contain rounded-lg mb-6 mx-auto"
-          />
-        )}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Product Image */}
+          <div className="glass rounded-[3rem] p-8 sm:p-12 aspect-square flex items-center justify-center relative overflow-hidden shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 pointer-events-none"></div>
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-700"
+              />
+            ) : (
+              <span className="text-muted-foreground font-bold uppercase tracking-widest">Нет изображения</span>
+            )}
+          </div>
 
-        <h1 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-white line-clamp-2">{product.name}</h1>
-
-        <div className="mb-4">
-          <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Категория: {product.category}</span>
-        </div>
-
-        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-6">{product.description}</p>
-
-        <div className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">${parseFloat(product.price).toFixed(2)}</div>
-
-        <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <span className={`px-3 py-1 flex items-center rounded text-sm sm:text-base ${product.inStock
-            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-            : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-            }`}>
-            {product.inStock ? 'В наличии' : 'Нет в наличии'}
-          </span>
-          {!isAdmin && (
-            <div className="w-full sm:w-auto">
-              <AddToCartButton productId={product.id} inStock={product.inStock} />
+          {/* Product Info */}
+          <div className="flex flex-col h-full py-4">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">{product.category}</span>
+              <span className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm border ${
+                product.inStock 
+                  ? 'bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/30' 
+                  : 'bg-red-500/20 text-red-600 dark:text-red-400 border-red-500/30'
+              }`}>
+                {product.inStock ? 'В наличии' : 'Нет в наличии'}
+              </span>
             </div>
-          )}
-        </div>
 
-        {isAdmin && (
-          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mt-4">
-            <div className="flex gap-2 w-full sm:w-auto">
-              <button
-                onClick={() => setIsEditing(true)}
-                className="flex-1 sm:flex-none bg-yellow-500 text-white px-4 sm:px-6 py-2 rounded hover:bg-yellow-600 transition text-sm sm:text-base"
-              >
-                Редактировать
-              </button>
-              <button
-                onClick={handleDelete}
-                className="flex-1 sm:flex-none bg-red-500 text-white px-4 sm:px-6 py-2 rounded hover:bg-red-600 transition text-sm sm:text-base"
-              >
-                Удалить
-              </button>
-            </div>
-            <div className="w-full sm:w-auto">
-              <AddToCartButton productId={product.id} inStock={product.inStock} />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
+              {product.name}
+            </h1>
+
+            <p className="text-lg text-muted-foreground leading-relaxed mb-10 max-w-xl">
+              {product.description}
+            </p>
+
+            <div className="mt-auto pt-10 border-t border-border/50">
+              <div className="flex items-baseline gap-2 mb-10">
+                <span className="text-xl font-medium text-muted-foreground">$</span>
+                <span className="text-6xl font-black tracking-tighter">
+                  {parseFloat(product.price).toFixed(2)}
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+                <div className="flex-1">
+                  <AddToCartButton productId={product.id} inStock={product.inStock} className="w-full h-full py-5 rounded-2xl text-lg font-bold" />
+                </div>
+                
+                {isAdmin && (
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="glass px-6 py-5 rounded-2xl font-bold hover:bg-yellow-500/10 hover:text-yellow-600 dark:hover:text-yellow-400 transition-all active:scale-95"
+                      title="Редактировать"
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      onClick={handleDelete}
+                      className="glass px-6 py-5 rounded-2xl font-bold hover:bg-red-500/10 hover:text-red-600 dark:hover:text-red-400 transition-all active:scale-95"
+                      title="Удалить"
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </main>
   )

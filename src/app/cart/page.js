@@ -35,92 +35,111 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Корзина</h1>
-      
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Список товаров */}
-        <div className="flex-1">
-          <div className="space-y-4">
+    <div className="container mx-auto px-4 py-12 sm:py-20 min-h-screen">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-12">Ваша корзина</h1>
+        
+        <div className="flex flex-col lg:flex-row gap-12 items-start text-foreground">
+          {/* Список товаров */}
+          <div className="flex-1 w-full space-y-6">
             {cart.items.map((item) => (
-              <div key={item.id} className="flex flex-row gap-3 min-[425px]:gap-4 bg-white dark:bg-gray-800 p-3 min-[425px]:p-4 rounded-lg shadow items-center">
-                <div className="w-20 h-20 min-[425px]:w-24 min-[425px]:h-24 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 relative">
+              <div key={item.id} className="glass-card p-4 sm:p-6 rounded-3xl flex flex-col sm:flex-row gap-6 items-center group relative overflow-hidden border-none shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                
+                <div className="w-24 h-24 sm:w-32 sm:h-32 glass rounded-2xl overflow-hidden flex-shrink-0 p-2 relative z-10">
                   {item.product.image ? (
                     <img
                       src={item.product.image}
                       alt={item.product.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-[10px] text-center p-1">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-[10px] font-bold uppercase tracking-widest text-center">
                       Нет фото
                     </div>
                   )}
                 </div>
                 
-                <div className="flex-1 min-w-0 flex flex-col min-[425px]:flex-row min-[425px]:items-center justify-between gap-2 min-[425px]:gap-4 min-h-[80px] min-[425px]:min-h-0">
-                  <div className="flex-1 min-w-0">
-                    <Link href={`/products/${item.product.id}`} className="hover:text-blue-600">
-                      <h3 className="font-semibold text-sm min-[425px]:text-lg dark:text-white truncate">{item.product.name}</h3>
+                <div className="flex-1 w-full flex flex-col sm:flex-row items-center sm:items-stretch justify-between gap-6 relative z-10">
+                  <div className="text-center sm:text-left flex-1 min-w-0">
+                    <div className="mb-1">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{item.product.category}</span>
+                    </div>
+                    <Link href={`/products/${item.product.id}`} className="block">
+                      <h3 className="text-xl font-bold hover:text-primary transition-colors line-clamp-1">{item.product.name}</h3>
                     </Link>
-                    <p className="text-xs min-[425px]:text-sm text-gray-500 dark:text-gray-400 truncate">{item.product.category}</p>
-                    <p className="text-sm min-[425px]:text-lg font-bold text-blue-600 dark:text-blue-400 mt-0.5 min-[425px]:mt-1">
+                    <div className="mt-2 text-2xl font-black tracking-tighter">
                       ${item.product.price}
-                    </p>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center justify-between min-[425px]:justify-end gap-3 min-[425px]:gap-4 mt-1 min-[425px]:mt-0">
-                    <div className="flex items-center gap-2 min-[425px]:gap-3">
+                  <div className="flex flex-row sm:flex-col items-center justify-between gap-4 w-full sm:w-auto">
+                    <div className="flex items-center gap-1 glass p-1 rounded-xl">
                       <button
                         onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                        className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-all text-muted-foreground hover:text-foreground"
                       >
                         <MinusIcon className="w-4 h-4" />
                       </button>
-                      <span className="w-8 min-[425px]:w-12 text-center text-sm min-[425px]:text-base dark:text-white">{item.quantity}</span>
+                      <span className="w-10 text-center font-bold">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-1 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-all text-muted-foreground hover:text-foreground"
                       >
                         <PlusIcon className="w-4 h-4" />
                       </button>
                     </div>
+                    
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="p-1.5 min-[425px]:p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
+                      className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-all active:scale-90"
+                      title="Удалить"
                     >
-                      <TrashIcon className="w-5 h-5" />
+                      <TrashIcon className="w-6 h-6" />
                     </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-        
-        {/* Итого */}
-        <div className="lg:w-80">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow sticky top-24">
-            <h2 className="text-xl font-bold mb-4 dark:text-white">Итого</h2>
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between">
-                <span>Товаров:</span>
-                <span>{cart.items.reduce((sum, i) => sum + i.quantity, 0)} шт.</span>
+          
+          {/* Summary Sidebar */}
+          <div className="w-full lg:w-[400px] lg:sticky lg:top-32">
+            <div className="glass p-8 rounded-[2.5rem] shadow-2xl border-none relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+              
+              <h2 className="text-2xl font-black mb-8 relative z-10">Сводка заказа</h2>
+              
+              <div className="space-y-4 mb-10 relative z-10">
+                <div className="flex justify-between items-center text-muted-foreground font-medium">
+                  <span>Общее количество:</span>
+                  <span className="text-foreground font-bold">{cart.items.reduce((sum, i) => sum + i.quantity, 0)} шт.</span>
+                </div>
+                <div className="flex justify-between items-center text-muted-foreground font-medium">
+                  <span>Доставка:</span>
+                  <span className="text-green-500 font-bold uppercase text-xs tracking-widest">Бесплатно</span>
+                </div>
+                <div className="pt-6 border-t border-border/50 flex justify-between items-end">
+                  <span className="text-sm font-bold uppercase tracking-widest">Итого к оплате:</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-sm font-medium text-muted-foreground">$</span>
+                    <span className="text-4xl font-black tracking-tighter">{totalPrice.toFixed(2)}</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between text-lg font-bold">
-                <span>Сумма:</span>
-                <span className="text-blue-600 dark:text-blue-400">${totalPrice.toFixed(2)}</span>
+
+              <div className="space-y-4 relative z-10">
+                <button className="w-full premium-gradient text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl text-lg">
+                  Оформить заказ
+                </button>
+                <Link
+                  href="/products"
+                  className="block w-full text-center py-4 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Продолжить покупки
+                </Link>
               </div>
             </div>
-            <button className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
-              Оформить заказ
-            </button>
-            <Link
-              href="/products"
-              className="block text-center mt-4 text-blue-600 hover:underline"
-            >
-              Продолжить покупки
-            </Link>
           </div>
         </div>
       </div>
