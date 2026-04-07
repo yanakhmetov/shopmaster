@@ -1,90 +1,132 @@
-# 🛒 ShopMaster
+# 🛒 ShopMaster — Premium E-Commerce Experience
 
-**ShopMaster** — это современный масштабируемый интернет-магазин, построенный на базе **Next.js 15**. Проект включает в себя полноценную систему корзины покупок, авторизацию пользователей и адаптивный интерфейс, оптимизированный для любых устройств от 320px до 4K.
+![ShopMaster Banner](./public/readme-banner.png)
+
+<div align="center">
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![NextAuth](https://img.shields.io/badge/NextAuth.js-Secure-green?style=for-the-badge&logo=nextauth.js)](https://next-auth.js.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
 ---
 
-## ✨ Основные возможности
+**ShopMaster** — это современная, высокопроизводительная платформа для электронной коммерции, вдохновленная премиальным "Glossy" дизайном. Построена с использованием последних технологий веб-разработки для обеспечения наилучшего пользовательского опыта и масштабируемости.
 
-*   🛍️ **Каталог товаров**: Удобный просмотр с категориями и детальным описанием.
-*   🛒 **Умная корзина**: Постоянная корзина, работающая через Context API с поддержкой локального хранилища/БД.
-*   🔐 **Авторизация**: Безопасный вход и регистрация через **NextAuth.js**.
-*   📱 **Полная адаптивность**: Интерфейс, протестированный на мобильных устройствах (320px) и планшетах.
-*   🌓 **Темная тема**: Поддержка темного режима (Dark Mode) с автоматическим определением темы ОС.
-*   🐳 **Docker-ready**: Готовые конфигурации для Docker и Docker Compose.
+[Обзор](#✨-ключевые-особенности) • [Установка](#🚀-быстрый-старт) • [Стек](#🛠-технологический-стек) • [Docker](#🐳-запуск-через-docker)
+
+</div>
+
+---
+
+## ✨ Ключевые особенности
+
+- 💎 **Premium Glossy Design**: Уникальный визуальный стиль с элементами стеклянного морфизма (glassmorphism), плавными градиентами и микро-анимациями.
+- 🚀 **Next.js 15 App Router**: Использование серверных компонентов (RSC) и API-роутов для максимальной производительности.
+- 🔐 **Безопасная Аутентификация**: Полноценная система логина и регистрации на базе **NextAuth.js** и **bcrypt**.
+- 🛒 **Умная Корзина**: Синхронизированная корзина покупок с использованием Context API.
+- 📱 **Mobile First & Ultra Responsive**: Идеальное отображение на любых экранах — от компактных смартфонов (320px) до 4K мониторов.
+- 🎭 **Динамические Карусели**: Интерактивные слайдеры товаров для повышения вовлеченности пользователей.
+- 🌓 **Темная Тема**: Глубокий, проработанный темный режим, снижающий нагрузку на глаза.
+- 🛠 **Типизация с TypeScript**: Полный контроль типов для надежности кода.
 
 ---
 
 ## 🛠 Технологический стек
 
-*   **Frontend**: Next.js 15 (App Router), React, Tailwind CSS.
-*   **Backend**: Next.js API Routes, Prisma ORM.
-*   **База данных**: PostgreSQL.
-*   **Аутентификация**: NextAuth.js.
-*   **Иконки**: Heroicons.
+### Frontend
+- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
+- **Library**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: [Heroicons](https://heroicons.com/)
+
+### Backend & Database
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Auth**: [NextAuth.js](https://next-auth.js.org/)
+- **Database**: PostgreSQL (через Docker-контейнер или локально)
 
 ---
 
 ## 🚀 Быстрый старт
 
-### 1. Предварительные требования
-*   Node.js 18.x или выше
-*   Docker Desktop (для запуска через Docker)
-
-### 2. Клонирование и установка зависимостей
+### 1. Клонирование репозитория
 ```bash
 git clone https://github.com/your-username/shopmaster.git
 cd shopmaster
+```
+
+### 2. Установка зависимостей
+```bash
 npm install
 ```
 
-### 3. Настройка переменных окружения
-Создайте файл `.env` в корне проекта (или скопируйте из примера):
+### 3. Настройка окружения
+Создайте файл `.env` на основе примера:
 ```bash
 cp .env.example .env
 ```
-Обязательно заполните следующие ключи:
-*   `DATABASE_URL`: Строка подключения к PostgreSQL.
-*   `NEXTAUTH_SECRET`: Секретный ключ для сессий.
-*   `NEXTAUTH_URL`: `http://localhost:3000` (в разработке).
+Настройте `DATABASE_URL` и `NEXTAUTH_SECRET`.
 
-### 4. Запуск базы данных и Prisma
-Если вы используете локальную БД:
+### 4. Инициализация базы данных
 ```bash
+# Генерация Prisma Client
 npx prisma generate
+
+# Применение схемы к БД (для разработки)
 npx prisma db push
+
+# (Опционально) Сидирование базы
+npm run db:seed
 ```
 
-### 5. Запуск в режиме разработки
+### 5. Запуск
 ```bash
 npm run dev
 ```
-Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000).
+Откройте [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 🐳 Запуск через Docker Compose
+## 🐳 Запуск через Docker
 
-Для быстрого запуска всего окружения (Next.js + PostgreSQL) одной командой:
+Самый быстрый способ развернуть весь стек (Full Stack):
 
 ```bash
 docker-compose up -d --build
 ```
-Это запустит:
-*   Приложение на порту **3000**
-*   PostgreSQL на порту **5432**
-*   Prisma Studio (визуальный редактор БД) на порту **5555**
+
+**Доступные сервисы:**
+- **App**: `http://localhost:3000`
+- **PostgreSQL**: `:5432` — База данных
+- **Prisma Studio**: `http://localhost:5555` — Визуальный редактор данных
 
 ---
 
 ## 📂 Структура проекта
 
-*   `src/app` — Страницы и API роуты (Next.js App Router).
-*   `src/components` — Переиспользуемые UI-компоненты.
-*   `src/context` — Контексты для управления состоянием (Корзина и др.).
-*   `prisma/` — Схема базы данных и миграции.
+```text
+shopmaster/
+├── prisma/             # Схемы и миграции БД
+├── public/             # Статические ассеты и логотипы
+├── src/
+│   ├── app/            # Страницы и API роуты
+│   ├── components/     # Атомарные UI компоненты
+│   ├── context/        # Управление глобальным состоянием
+│   ├── lib/            # Утилиты и конфигурации (Prisma client)
+│   └── styles/         # Глобальные стили (Tailwind)
+├── Dockerfile          # Конфигурация образа
+└── docker-compose.yml  # Оркестрация контейнеров
+```
 
 ---
 
+## 📄 Лицензия
+
+Этот проект распространяется под лицензией MIT. Вы вольны использовать его для личных и коммерческих целей.
+
 ---
-⭐ *Если проект был вам полезен, поставьте ему звезду!*
+<div align="center">
+⭐ Если вам понравился этот проект, поддержите его звездой!
+</div>
