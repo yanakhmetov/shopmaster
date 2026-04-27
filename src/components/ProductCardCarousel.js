@@ -4,7 +4,7 @@ import AddToCartButton from './AddToCartButton'
 
 export default function ProductCardCarousel({ product }) {
   return (
-    <div className="group h-full flex flex-col glass-card rounded-[2rem] overflow-hidden border-none">
+    <div className="group h-full flex flex-col card rounded-[2rem] overflow-hidden border-none">
       <div className="relative aspect-[4/5] overflow-hidden bg-white/50 dark:bg-black/20 flex items-center justify-center p-16">
         {product.image ? (
           <img
@@ -45,11 +45,24 @@ export default function ProductCardCarousel({ product }) {
           <div className="flex gap-3">
             <Link
               href={`/products/${product.id}`}
-              className="flex-1 flex items-center justify-center gap-2 glass hover:bg-black/5 dark:hover:bg-white/5 py-3 rounded-2xl transition-all font-semibold text-sm"
+              className="
+              flex-1
+              flex
+              items-center 
+              justify-center 
+              gap-2 
+              card 
+              hover:bg-black/5 
+              dark:hover:bg-white/5 
+              py-3 
+              rounded-2xl 
+              transition-all 
+              font-semibold 
+              text-l"
             >
-              <EyeIcon className="w-4 h-4" />
               Детали
             </Link>
+
             <div className="flex-1">
               <AddToCartButton productId={product.id} inStock={product.inStock} className="w-full h-full" />
             </div>
@@ -58,4 +71,4 @@ export default function ProductCardCarousel({ product }) {
       </div>
     </div>
   )
-}
+}

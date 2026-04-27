@@ -33,16 +33,18 @@ export default function ThemeToggle() {
   }
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-3 rounded-2xl glass hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 shadow-sm"
+  <button
+    onClick={toggleTheme}
+    className="p-3 rounded-2xl group card hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 shadow-sm h-12 flex items-center justify-center "
       aria-label="Переключить тему"
     >
-      {darkMode ? (
-        <SunIcon className="w-5 h-5 text-yellow-500 animate-pulse" />
-      ) : (
-        <MoonIcon className="w-5 h-5 text-indigo-600" />
-      )}
+       {darkMode ? (
+         // При включённой тёмной теме иконка солнца должна быть белой, чтобы быть видимой на тёмном фоне
+         <SunIcon className="w-5 h-5 text-white group-hover:text-primary" />
+       ) : (
+         // При светлой теме показываем луну, её цвет остаётся чёрным
+         <MoonIcon className="w-5 h-5 text-black group-hover:text-primary" />
+       )}
     </button>
   )
 }

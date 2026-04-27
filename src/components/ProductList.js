@@ -51,11 +51,11 @@ export default function ProductList({ category = null, search = '' }) {
     return (
       <div className="text-center py-12">
         <div className="text-red-600 dark:text-red-400 text-lg mb-2">⚠️ {error}</div>
-        <button 
+        <button
           onClick={fetchProducts}
-          className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+          className="btn"
         >
-          Попробовать снова
+          Загрузить товары
         </button>
       </div>
     )

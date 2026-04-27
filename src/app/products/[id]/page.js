@@ -186,7 +186,7 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Product Image */}
           <div className="glass rounded-[3rem] p-8 sm:p-12 aspect-square flex items-center justify-center relative overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 pointer-events-none"></div>
+
             {product.image ? (
               <img
                 src={product.image}

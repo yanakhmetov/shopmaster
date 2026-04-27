@@ -103,7 +103,7 @@ export default function SignUp() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full premium-gradient text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg mt-4"
+              className="w-full premium-gradient dark:text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg mt-4 hover:text-orange-500"
             >
               {loading ? 'Создание...' : 'Зарегистрироваться'}
             </button>
@@ -112,4 +112,4 @@ export default function SignUp() {
       </div>
     </div>
   )
-}
+}

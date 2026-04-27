@@ -108,8 +108,8 @@ export default function Home() {
       <section className="relative overflow-hidden py-20 sm:py-32">
         {/* Анимированный фоновый элемент */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full opacity-30 dark:opacity-20 blur-[120px] pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-blue-500 rounded-full"></div>
-          <div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-purple-500 rounded-full"></div>
+          <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-gray-600 rounded-full opacity-30"></div>
+          <div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-gray-600 rounded-full opacity-30"></div>
         </div>
         
         <div className="container relative z-10 mx-auto px-4 text-center">
@@ -117,16 +117,15 @@ export default function Home() {
             Будущее покупок <br className="hidden sm:block" /> начинается здесь
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            ShopMaster — это премиальный опыт онлайн-шоппинга. <br className="hidden sm:block" /> 
+            <br className="hidden sm:block" /> 
             Только лучшие бренды и исключительный сервис.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link
               href="/products"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 premium-gradient text-white px-10 py-5 rounded-full font-black premium-glow transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-2xl text-lg"
+               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gray-800 text-white px-10 py-5 rounded-full font-black transform hover:scale-105 active:scale-95 transition-all duration-300 shadow-2xl text-lg"
             >
               Начать покупки
-              <ArrowRightIcon className="w-6 h-6 ml-1" />
             </Link>
           </div>
         </div>
@@ -175,21 +174,21 @@ export default function Home() {
             >
               {/* Кнопки навигации */}
               {currentIndex > 0 && (
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 z-20 glass rounded-full p-3 shadow-xl hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
-                >
-                  <ChevronLeftIcon className="w-6 h-6" />
-                </button>
+                    <button
+                      onClick={prevSlide}
+                      className="btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 z-20 opacity-0 group-hover:opacity-100"
+                    >
+                      <ChevronLeftIcon className="w-6 h-6" />
+                    </button>
               )}
 
               {currentIndex + itemsPerView < products.length && (
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-8 z-20 glass rounded-full p-3 shadow-xl hover:scale-110 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
-                >
-                  <ChevronRightIcon className="w-6 h-6" />
-                </button>
+                    <button
+                      onClick={nextSlide}
+                      className="btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-8 z-20 opacity-0 group-hover:opacity-100"
+                    >
+                      <ChevronRightIcon className="w-6 h-6" />
+                    </button>
               )}
 
               {/* Контейнер карусели */}
@@ -243,9 +242,9 @@ export default function Home() {
               { icon: StarIcon, title: "Гарантия качества", desc: "Каждый товар проходит трехэтапную проверку подлинности и состояния перед отправкой." },
               { icon: ShoppingBagIcon, title: "Эксклюзивный выбор", desc: "Прямые контракты с мировыми брендами позволяют первыми получать лимитированные коллекции." }
             ].map((feature, idx) => (
-              <div key={idx} className="group p-8 glass-card rounded-3xl hover:-translate-y-2">
-                <div className="w-16 h-16 rounded-2xl premium-gradient flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-8 h-8 text-white" />
+              <div key={idx} className="group p-8 glass-card rounded-3xl ">
+                <div className="w-16 h-16 rounded-2xl premium-gradient flex items-center justify-center mb-6 shadow-lg group-hover:scale-105 transition-transform border-2 border-white/30">
+                  <feature.icon className="w-8 h-8 dark:text-white " />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>

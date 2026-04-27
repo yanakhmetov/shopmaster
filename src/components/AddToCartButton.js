@@ -1,4 +1,4 @@
-'use client'
+1 | 'use client'
 
 import { useCart } from '@/context/CartContext'
 import { useState } from 'react'
@@ -23,13 +23,26 @@ export default function AddToCartButton({ productId, inStock, className = '' }) 
     <button
       onClick={handleAdd}
       disabled={!inStock || isAdding || loading}
-      className={`relative inline-flex items-center justify-center px-6 py-3 rounded-2xl font-bold transition-all transform active:scale-95 disabled:scale-100 disabled:opacity-50 overflow-hidden group shadow-lg ${
-        inStock
-          ? 'premium-gradient text-white premium-glow'
-          : 'glass text-muted-foreground'
-      } ${className}`}
+        className={`flex-1
+              flex
+              items-center 
+              justify-center 
+              gap-2 
+              card 
+              hover:bg-black/5 
+              dark:hover:bg-white/5 
+              py-3 
+              rounded-2xl 
+              transition-all 
+              font-semibold 
+              text-l
+              ${
+          inStock
+            ? 'premium-gradient text-black premium-glow'
+            : 'glass text-muted-foreground'
+          } text-black dark:text-white hover:text-orange-500 ${className}`}
     >
-      <span className={`transition-all duration-300 ${isAdding ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+      <span className={`transition-all duration-300 ${isAdding ? 'opacity-0 scale-50' : 'opacity-100 scale-100'} `}>
         {!inStock ? 'Нет в наличии' : 'В корзину'}
       </span>
       {isAdding && (

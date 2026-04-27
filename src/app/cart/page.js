@@ -129,9 +129,9 @@ export default function CartPage() {
               </div>
 
               <div className="space-y-4 relative z-10">
-                <button className="w-full premium-gradient text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl text-lg">
-                  Оформить заказ
-                </button>
+          <button className="btn py-5 rounded-2xl text-lg font-bold shadow-xl">
+            Оформить заказ
+          </button>
                 <Link
                   href="/products"
                   className="block w-full text-center py-4 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"

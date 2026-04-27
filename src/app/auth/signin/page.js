@@ -89,7 +89,7 @@ export default function SignIn() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full premium-gradient text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg mt-4"
+              className="w-full premium-gradient dark:text-white py-5 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-lg mt-4 hover:text-orange-500"
             >
               {loading ? 'Вход...' : 'Войти'}
             </button>
@@ -97,7 +97,7 @@ export default function SignIn() {
             <div className="pt-8 mt-8 border-t border-border/50 text-center">
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">Демо-статус</p>
               <div className="glass-card p-4 rounded-2xl inline-block">
-                <code className="text-[10px] font-mono text-muted-foreground">admin@shopmaster.com / admin123</code>
+                <code className="text-[16px] font-mono text-muted-foreground">admin@shopmaster.com / admin123</code>
               </div>
             </div>
           </form>

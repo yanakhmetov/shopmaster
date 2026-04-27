@@ -117,7 +117,7 @@ export default function ProductsPage() {
             className={`w-full md:w-auto px-8 py-3.5 rounded-2xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg ${
               showForm 
                 ? 'glass text-foreground' 
-                : 'premium-gradient text-white premium-glow'
+                : 'premium-gradient dark:text-white premium-glow'
             }`}
           >
             {showForm ? 'Закрыть' : 'Добавить товар'}
@@ -154,7 +154,7 @@ export default function ProductsPage() {
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-4 rounded-2xl font-bold transition-all ${
                 selectedCategory === 'all'
-                  ? 'premium-gradient text-white shadow-lg'
+                  ? 'premium-gradient dark:text-white shadow-lg'
                   : 'glass-card hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
@@ -166,7 +166,7 @@ export default function ProductsPage() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-4 rounded-2xl font-bold transition-all ${
                   selectedCategory === category
-                    ? 'premium-gradient text-white shadow-lg'
+                    ? 'premium-gradient dark:text-white shadow-lg'
                     : 'glass-card hover:bg-black/5 dark:hover:bg-white/5'
                 }`}
               >
@@ -199,7 +199,7 @@ export default function ProductsPage() {
                   }}
                   className={`w-full text-left  px-4 py-3 rounded-xl transition ${
                     selectedCategory === 'all' 
-                      ? 'premium-gradient text-white' 
+                      ? 'premium-gradient dark:text-white' 
                       : 'hover:bg-black/5 dark:hover:bg-white/5'
                   }`}
                 >
@@ -348,7 +348,7 @@ export default function ProductsPage() {
           <div className="mt-10 flex gap-4">
             <button
               type="submit"
-              className="premium-gradient text-white px-10 py-4 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl"
+              className="premium-gradient dark:text-white px-10 py-4 rounded-2xl font-bold premium-glow hover:scale-[1.02] active:scale-95 transition-all shadow-xl"
             >
               Сохранить товар
             </button>
